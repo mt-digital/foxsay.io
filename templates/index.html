@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>foxsay</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/js/bootstrap.min.js" integrity="sha384-ux8v3A6CPtOTqOzMKiuo3d/DomGaaClxFYdCu2HPMBEkf6x2xiDyJ7gkXU0MWwaD" crossorigin="anonymous"></script>
+<style>
+#footer {
+    background-color: #f5f5f5;
+}
+
+#push, #footer {
+    height: 60px;
+}
+.container .credit {
+    margin: 20px 0;
+}
+.muted {
+    color: #999999;
+}
+</style>
+<body>
+  <div class="container">
+
+    <h1>
+      <a href="https://www.youtube.com/watch?v=jofNR_WkoCE">
+        What does the FOX say?
+      </a>
+    </h1>
+
+    <h2>Daily Summaries of FOX Programming</h2>
+
+      <p class="muted credit">Created with captions provided by 
+        <a href="https://archive.org/details/tv">Internet Archive's TV News Archive</a>
+      </p>
+    <hr />
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+      {% if prev_solr_date %}
+        <a href="/?date={{ prev_solr_date }}">Previous day</a>
+      {% endif %}
+      </div>
+
+      <div class="col-xs-12 col-md-4" style="text-align:center">{{ date.strftime('%A %B %d, %Y') }}</div>
+
+      <div class="col-xs-12 col-md-4" style="text-align:right">
+      {% if next_solr_date %}
+        <a href="/?date={{ next_solr_date }}">Next day</a>
+      {% endif %}
+      </div>
+    </div>
+
+    <br>
+
+    {#    <div class="row">
+    
+      <div class="col-xs-12 col-md-3">
+        <p>Or, select a date:</p>
+      </div>
+
+      <div class="col-xs-12 col-md-3" id="date-picker">
+        <select>
+          <option value="2016">2016</option>
+        </select>
+        <select>
+        {% for mo in range(1,13) %}
+          <option value="{{ mo }}">{{ mo }}</option>
+        {% endfor %}
+        </select>
+        <select>
+        {% for mo in range(1,32) %}
+          <option value="{{ mo }}">{{ mo }}</option>
+        {% endfor %}
+        </select>
+
+        <button onclick="goToSelectedDate()">Go</button>
+      </div>
+
+    </div> #}
+
+    <br>
+    <br>
+
+    <div class="row">
+      
+      <div class="col-xs-12 col-md-6">
+        {% for show, summary in summaries.items() %}
+          {% if loop.index0 < loop.length/2.0 %}
+              <h2>{{ show }}</h2>
+              <p>{{ summary }}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        {% for show, summary in summaries.items() %}
+          {% if loop.index0 >= loop.length/2.0 %}
+            <h2>{{ show }}</h2>
+            <p>{{summary}}</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+
+
+  <div id="footer">
+    <div class="container">
+    </div>
+  </div>
+</div>
+</body>
+</html>
